@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo da Reserva - Nimbus Hotel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de resumo */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1800&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 0;
+        }
+        
+        .page-header-content {
+            max-width: 800px;
+        }
+        
+        .page-header-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .booking-summary {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 50px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        
+        .booking-summary h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-total {
+            font-weight: 700;
+            color: #c8a97e;
+            font-size: 1.4rem;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .summary-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .summary-actions .btn {
+            flex: 1;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #c8a97e;
+            border: 1px solid #c8a97e;
+        }
+        
+        .btn-outline:hover {
+            background-color: #c8a97e;
+            color: #fff;
+        }
+        
+        .room-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .summary-header h2 {
+            color: #c8a97e;
+            margin-bottom: 10px;
+        }
+        
+        .summary-header p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">Nimbus Hotel</a></h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#rooms">Quartos</a></li>
+                    <li><a href="index.html#amenities">Comodidades</a></li>
+                    <li><a href="index.html#gallery">Galeria</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="animate-fade">Resumo da Reserva</h1>
+            <p class="animate-fade">Confira os detalhes da sua estadia no Nimbus Hotel</p>
+        </div>
+    </section>
+
+    <section class="booking-summary-section">
+        <div class="container">
+            <div class="booking-summary">
+                <div class="summary-header">
+                    <h2 id="summary-room-type">Carregando...</h2>
+                    <p>Obrigado por escolher o Nimbus Hotel</p>
+                </div>
+                
+                <img id="room-image" class="room-image" src="" alt="Imagem do quarto">
+                
+                <div class="summary-item">
+                    <span>Check-in:</span>
+                    <span id="summary-check-in">-</span>
+                </div>
+                <div class="summary-item">
+                    <span>Check-out:</span>
+                    <span id="summary-check-out">-</span>
+                </div>
+                <div class="summary-item">
+                    <span>Número de Noites:</span>
+                    <span id="summary-nights">-</span>
+                </div>
+                <div class="summary-item">
+                    <span>Hóspedes:</span>
+                    <span id="summary-guests">-</span>
+                </div>
+                <div class="summary-item">
+                    <span>Valor por noite:</span>
+                    <span id="summary-price-per-night">-</span>
+                </div>
+                <div class="summary-item summary-total">
+                    <span>Total:</span>
+                    <span id="summary-total">-</span>
+                </div>
+                
+                <div class="summary-actions">
+                    <a href="reservas.html" class="btn btn-outline">Voltar</a>
+                    <button class="btn">Confirmar Reserva</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Nimbus Hotel</h2>
+                    <p>Luxo e conforto em cada detalhe</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="index.html#rooms">Quartos</a></li>
+                        <li><a href="index.html#amenities">Comodidades</a></li>
+                        <li><a href="index.html#gallery">Galeria</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber nossas ofertas exclusivas</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Nimbus Hotel. Todos os direitos reservados.</p>
+                <div class="footer-payment">
+                    <span>Aceitamos:</span>
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Função para obter parâmetros da URL
+        function getUrlParams() {
+            const params = {};
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            
+            for (const [key, value] of urlParams.entries()) {
+                params[key] = value;
+            }
+            
+            return params;
+        }
+        
+        // Função para formatar data
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+        
+        // Função para carregar os dados da reserva
+        function loadBookingData() {
+            // Obter dados da URL
+            const params = getUrlParams();
+            
+            // Se não houver dados na URL, tentar obter do localStorage
+            if (Object.keys(params).length === 0) {
+                const bookingData = JSON.parse(localStorage.getItem('bookingData'));
+                if (!bookingData) {
+                    window.location.href = 'reservas.html';
+                    return;
+                }
+                
+                displayBookingData(bookingData);
+            } else {
+                // Usar dados da URL
+                const bookingData = {
+                    roomType: decodeURIComponent(params.roomType || ''),
+                    checkIn: params.checkIn || '',
+                    checkOut: params.checkOut || '',
+                    nights: parseInt(params.nights || '0'),
+                    adults: parseInt(params.adults || '0'),
+                    children: parseInt(params.children || '0'),
+                    pricePerNight: parseFloat(params.pricePerNight || '0'),
+                    total: parseFloat(params.total || '0'),
+                    roomImage: decodeURIComponent(params.roomImage || '')
+                };
+                
+                displayBookingData(bookingData);
+            }
+        }
+        
+        // Função para exibir os dados da reserva
+        function displayBookingData(data) {
+            document.getElementById('summary-room-type').textContent = data.roomType;
+            document.getElementById('summary-check-in').textContent = formatDate(data.checkIn);
+            document.getElementById('summary-check-out').textContent = formatDate(data.checkOut);
+            document.getElementById('summary-nights').textContent = data.nights;
+            document.getElementById('summary-guests').textContent = `${data.adults} adulto(s)${data.children > 0 ? ` e ${data.children} criança(s)` : ''}`;
+            document.getElementById('summary-price-per-night').textContent = `R$ ${data.pricePerNight.toFixed(2)}`;
+            document.getElementById('summary-total').textContent = `R$ ${data.total.toFixed(2)}`;
+            
+            // Definir a imagem do quarto
+            const roomImageElement = document.getElementById('room-image');
+            if (data.roomImage) {
+                roomImageElement.src = data.roomImage;
+                roomImageElement.alt = `Imagem do ${data.roomType}`;
+            } else {
+                // Definir imagem com base no tipo de quarto
+                if (data.roomType.includes('Standard')) {
+                    roomImageElement.src = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=800&auto=format&fit=crop';
+                } else if (data.roomType.includes('Deluxe')) {
+                    roomImageElement.src = 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop';
+                } else if (data.roomType.includes('Suíte')) {
+                    roomImageElement.src = 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800&auto=format&fit=crop';
+                } else {
+                    roomImageElement.src = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=800&auto=format&fit=crop';
+                }
+                roomImageElement.alt = `Imagem do ${data.roomType}`;
+            }
+        }
+        
+        // Carregar dados quando a página for carregada
+        document.addEventListener('DOMContentLoaded', loadBookingData);
+    </script>
+</body>
+</html>

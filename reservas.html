@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - Nimbus Hotel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de reservas */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1800&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 0;
+        }
+        
+        .page-header-content {
+            max-width: 800px;
+        }
+        
+        .page-header-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Estilos para o formato de lista de quartos */
+        .rooms-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .room-card {
+            display: flex;
+            flex-direction: row;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .room-img {
+            flex: 0 0 300px;
+            height: auto;
+            max-height: 300px;
+        }
+        
+        .room-info {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .room-price {
+            text-align: right;
+        }
+        
+        .room-details {
+            margin-top: auto;
+        }
+        
+        .room-availability-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .availability-filter {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #c8a97e;
+            box-shadow: 0 2px 8px rgba(200, 169, 126, 0.2);
+        }
+        
+        .filter-submit {
+            display: flex;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+        
+        .filter-submit .btn {
+            padding: 14px 28px;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-submit .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Estilos para os filtros de amenidades */
+        .amenities-filter {
+            flex-basis: 100%;
+            margin-top: 10px;
+        }
+        
+        .amenities-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .amenity-checkbox {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: #f8f8f8;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eaeaea;
+            min-width: 160px;
+            user-select: none;
+        }
+        
+        .amenity-checkbox:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-color: #c8a97e;
+        }
+        
+        /* Esconder checkbox padrão */
+        .amenity-checkbox input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        
+        /* Criar checkbox customizado */
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            margin-right: 12px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        
+        /* Estilo quando hover */
+        .amenity-checkbox:hover .custom-checkbox {
+            border-color: #c8a97e;
+        }
+        
+        /* Checkmark quando selecionado */
+        .custom-checkbox:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* Mostrar checkmark quando checkbox está selecionado */
+        .amenity-checkbox input:checked ~ .custom-checkbox {
+            background-color: #c8a97e;
+            border-color: #c8a97e;
+        }
+        
+        .amenity-checkbox input:checked ~ .custom-checkbox:after {
+            display: block;
+        }
+        
+        /* Estilo para o texto do label */
+        .amenity-checkbox label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            color: #444;
+            width: 100%; /* Garante que o label ocupe toda a largura disponível */
+            pointer-events: none; /* Permite que cliques passem através do label para o contêiner pai */
+        }
+        
+        .amenity-checkbox i {
+            margin-right: 8px;
+            color: #c8a97e;
+            font-size: 1.1rem;
+            pointer-events: none; /* Permite que cliques passem através do ícone para o contêiner pai */
+        }
+
+        /* Garantindo que o label não impeça cliques */
+        .amenity-checkbox input[type="checkbox"],
+        .amenity-checkbox .custom-checkbox {
+            pointer-events: none; /* Permite que cliques passem através destes elementos para o contêiner pai */
+        }
+        
+        /* Estilos para o slider de preço */
+        .price-slider-container {
+            width: 100%;
+            padding: 10px 0;
+            background: transparent;
+        }
+        
+        .price-range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 2px; /* Altura fina como um palito */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent; /* Tornando o fundo transparente */
+            outline: none;
+            border-radius: 0;
+            margin: 18px 0; /* Aumentado para dar mais espaço para o thumb */
+            position: relative;
+            border: none;
+            box-shadow: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            background: #c8a97e;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 2px solid #fff;
+            margin-top: -10px; /* Ajuste para centralizar */
+            position: relative;
+            z-index: 2;
+            transition: all 0.2s ease;
+        }
+        
+        input[type="range"]:hover::-webkit-slider-thumb {
+            transform: scale(1.1);
+            box-shadow: 0 3px 7px rgba(0,0,0,0.25);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            background: #c8a97e;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 2px solid #fff;
+            position: relative;
+            z-index: 2;
+            transition: all 0.2s ease;
+        }
+        
+        input[type="range"]:hover::-moz-range-thumb {
+            transform: scale(1.1);
+            box-shadow: 0 3px 7px rgba(0,0,0,0.25);
+        }
+        
+        /* Estilizando apenas a linha (palito) para Chrome */
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 2px;
+            background: #c8a97e;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+        }
+        
+        /* Estilizando apenas a linha (palito) para Firefox */
+        input[type="range"]::-moz-range-track {
+            height: 2px;
+            background: #c8a97e;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+        }
+        
+        input[type="range"]::-moz-range-progress {
+            height: 2px;
+            background: #c8a97e;
+            border-radius: 0;
+            border: none;
+        }
+        
+        .room-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .room-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .amenity-tag {
+            background-color: #f0f0f0;
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .amenity-tag i {
+            margin-right: 5px;
+            color: #c8a97e;
+        }
+        
+        .room-availability {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        .limited-availability {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .room-card .btn {
+            margin-top: 15px;
+        }
+        
+        .booking-summary {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .booking-summary h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-total {
+            font-weight: 700;
+            color: #c8a97e;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">Nimbus Hotel</a></h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#rooms">Quartos</a></li>
+                    <li><a href="index.html#amenities">Comodidades</a></li>
+                    <li><a href="index.html#gallery">Galeria</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="animate-fade">Reservas</h1>
+            <p class="animate-fade">Encontre o quarto perfeito no Nimbus Hotel</p>
+        </div>
+    </section>
+
+    <section class="availability-section">
+        <div class="container">
+            <div class="availability-filter">
+                <h3>Verificar Disponibilidade</h3>
+                <form class="filter-form" id="search-filter-form">
+                    <div class="filter-group">
+                        <label for="check-in">Check-in</label>
+                        <input type="date" id="check-in" name="check-in" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="check-out">Check-out</label>
+                        <input type="date" id="check-out" name="check-out" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="adults">Adultos</label>
+                        <select id="adults" name="adults" required>
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="children">Crianças</label>
+                        <select id="children" name="children">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="price-range">Faixa de Preço</label>
+                        <div class="price-slider-container">
+                            <input type="range" id="price-range" name="price-range" min="450" max="950" step="50" value="950">
+                            <div class="price-range-values">
+                                <span>R$ 450</span>
+                                <span id="price-value">Até R$ 950</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-group amenities-filter">
+                        <label>Características</label>
+                        <div class="amenities-options">
+                            <div class="amenity-checkbox" onclick="toggleCheckbox('wifi')">
+                                <input type="checkbox" id="wifi" name="amenities" value="wifi" checked>
+                                <span class="custom-checkbox"></span>
+                                <label for="wifi"><i class="fas fa-wifi"></i> Wi-Fi</label>
+                            </div>
+                            <div class="amenity-checkbox" onclick="toggleCheckbox('breakfast')">
+                                <input type="checkbox" id="breakfast" name="amenities" value="breakfast" checked>
+                                <span class="custom-checkbox"></span>
+                                <label for="breakfast"><i class="fas fa-utensils"></i> Café da manhã</label>
+                            </div>
+                            <div class="amenity-checkbox" onclick="toggleCheckbox('ac')">
+                                <input type="checkbox" id="ac" name="amenities" value="ac" checked>
+                                <span class="custom-checkbox"></span>
+                                <label for="ac"><i class="fas fa-snowflake"></i> Ar-condicionado</label>
+                            </div>
+                            <div class="amenity-checkbox" onclick="toggleCheckbox('bath')">
+                                <input type="checkbox" id="bath" name="amenities" value="bath">
+                                <span class="custom-checkbox"></span>
+                                <label for="bath"><i class="fas fa-bath"></i> Banheira</label>
+                            </div>
+                            <div class="amenity-checkbox" onclick="toggleCheckbox('room-service')">
+                                <input type="checkbox" id="room-service" name="amenities" value="room-service">
+                                <span class="custom-checkbox"></span>
+                                <label for="room-service"><i class="fas fa-concierge-bell"></i> Serviço de quarto</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-submit">
+                        <button type="button" id="apply-filters" class="btn">Aplicar Filtros</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="section-title">
+                <h2>Quartos Disponíveis</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="rooms-list">
+                <div class="room-card">
+                    <div class="room-img">
+                        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=800&auto=format&fit=crop" alt="Quarto Standard">
+                    </div>
+                    <div class="room-info">
+                        <div class="room-header">
+                            <h3>Quarto Standard</h3>
+                            <div class="room-price">
+                                <span>A partir de</span>
+                                <h4>R$ 450<small>/noite</small></h4>
+                            </div>
+                        </div>
+                        <p>Nossos quartos standard oferecem o equilíbrio perfeito entre conforto e elegância, com 30m² de espaço bem aproveitado.</p>
+                        <div class="room-details">
+                            <div class="room-amenities">
+                                <span class="amenity-tag"><i class="fas fa-wifi"></i> Wi-Fi Gratuito</span>
+                                <span class="amenity-tag"><i class="fas fa-tv"></i> Smart TV 42"</span>
+                                <span class="amenity-tag"><i class="fas fa-snowflake"></i> Ar-condicionado</span>
+                                <span class="amenity-tag"><i class="fas fa-coffee"></i> Cafeteira</span>
+                                <span class="amenity-tag"><i class="fas fa-utensils"></i> Café da manhã incluso</span>
+                            </div>
+                            <div class="room-availability-container">
+                                <span class="room-availability">Disponível</span>
+                                <button class="btn" onclick="showBookingSummary('Quarto Standard', 450)">Reservar Agora</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-img">
+                        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop" alt="Quarto Deluxe">
+                    </div>
+                    <div class="room-info">
+                        <div class="room-header">
+                            <h3>Quarto Deluxe</h3>
+                            <div class="room-price">
+                                <span>A partir de</span>
+                                <h4>R$ 650<small>/noite</small></h4>
+                            </div>
+                        </div>
+                        <p>Experimente um nível superior de conforto em nossos quartos deluxe de 45m², com vistas panorâmicas da cidade.</p>
+                        <div class="room-details">
+                            <div class="room-amenities">
+                                <span class="amenity-tag"><i class="fas fa-wifi"></i> Wi-Fi Gratuito</span>
+                                <span class="amenity-tag"><i class="fas fa-tv"></i> Smart TV 50"</span>
+                                <span class="amenity-tag"><i class="fas fa-bath"></i> Banheira de Hidromassagem</span>
+                                <span class="amenity-tag"><i class="fas fa-coffee"></i> Cafeteira Premium</span>
+                                <span class="amenity-tag"><i class="fas fa-utensils"></i> Café da manhã incluso</span>
+                                <span class="amenity-tag"><i class="fas fa-concierge-bell"></i> Serviço de quarto 24h</span>
+                            </div>
+                            <div class="room-availability-container">
+                                <span class="room-availability limited-availability">Últimas unidades</span>
+                                <button class="btn" onclick="showBookingSummary('Quarto Deluxe', 650)">Reservar Agora</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-img">
+                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800&auto=format&fit=crop" alt="Suíte Executiva">
+                    </div>
+                    <div class="room-info">
+                        <div class="room-header">
+                            <h3>Suíte Executiva</h3>
+                            <div class="room-price">
+                                <span>A partir de</span>
+                                <h4>R$ 950<small>/noite</small></h4>
+                            </div>
+                        </div>
+                        <p>Nossa suíte executiva de 70m² oferece o máximo em luxo, com sala de estar separada e amenidades exclusivas.</p>
+                        <div class="room-details">
+                            <div class="room-amenities">
+                                <span class="amenity-tag"><i class="fas fa-wifi"></i> Wi-Fi Gratuito</span>
+                                <span class="amenity-tag"><i class="fas fa-tv"></i> Smart TV 65"</span>
+                                <span class="amenity-tag"><i class="fas fa-glass-cheers"></i> Bar Privativo</span>
+                                <span class="amenity-tag"><i class="fas fa-concierge-bell"></i> Serviço de Mordomo</span>
+                                <span class="amenity-tag"><i class="fas fa-utensils"></i> Café da manhã incluso</span>
+                                <span class="amenity-tag"><i class="fas fa-spa"></i> Acesso ao spa</span>
+                                <span class="amenity-tag"><i class="fas fa-car"></i> Estacionamento VIP</span>
+                            </div>
+                            <div class="room-availability-container">
+                                <span class="room-availability">Disponível</span>
+                                <button class="btn" onclick="showBookingSummary('Suíte Executiva', 950)">Reservar Agora</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- O resumo da reserva foi movido para a página resumo.html -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Nimbus Hotel</h2>
+                    <p>Luxo e conforto em cada detalhe</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="index.html#rooms">Quartos</a></li>
+                        <li><a href="index.html#amenities">Comodidades</a></li>
+                        <li><a href="index.html#gallery">Galeria</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber nossas ofertas exclusivas</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Nimbus Hotel. Todos os direitos reservados.</p>
+                <div class="footer-payment">
+                    <span>Aceitamos:</span>
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Definição dos quartos e suas características para filtro
+        const roomsData = [
+            {
+                type: 'Quarto Standard',
+                price: 450,
+                amenities: ['wifi', 'breakfast', 'ac'],
+                element: null // Será preenchido após o carregamento do DOM
+            },
+            {
+                type: 'Quarto Deluxe',
+                price: 650,
+                amenities: ['wifi', 'breakfast', 'ac', 'bath', 'room-service'],
+                element: null
+            },
+            {
+                type: 'Suíte Executiva',
+                price: 950,
+                amenities: ['wifi', 'breakfast', 'ac', 'room-service', 'spa', 'vip-parking'],
+                element: null
+            }
+        ];
+
+        // Função para mostrar o resumo da reserva
+        function showBookingSummary(roomType, pricePerNight) {
+            // Obter datas do formulário
+            const checkInDate = document.getElementById('check-in').value;
+            const checkOutDate = document.getElementById('check-out').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            
+            // Verificar se as datas foram preenchidas
+            if (!checkInDate || !checkOutDate) {
+                alert('Por favor, selecione as datas de check-in e check-out.');
+                document.getElementById('check-in').focus();
+                return;
+            }
+            
+            // Calcular número de noites
+            const checkIn = new Date(checkInDate);
+            const checkOut = new Date(checkOutDate);
+            const timeDiff = checkOut.getTime() - checkIn.getTime();
+            const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            if (nights <= 0) {
+                alert('A data de check-out deve ser posterior à data de check-in.');
+                return;
+            }
+            
+            // Calcular total
+            const total = nights * pricePerNight;
+            
+            // Determinar a imagem do quarto com base no tipo
+            let roomImage = '';
+            if (roomType.includes('Standard')) {
+                roomImage = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=800&auto=format&fit=crop';
+            } else if (roomType.includes('Deluxe')) {
+                roomImage = 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop';
+            } else if (roomType.includes('Suíte')) {
+                roomImage = 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800&auto=format&fit=crop';
+            }
+            
+            // Criar objeto com dados da reserva
+            const bookingData = {
+                roomType: roomType,
+                checkIn: checkInDate,
+                checkOut: checkOutDate,
+                nights: nights,
+                adults: parseInt(adults),
+                children: parseInt(children),
+                pricePerNight: pricePerNight,
+                total: total,
+                roomImage: roomImage
+            };
+            
+            // Salvar dados no localStorage
+            localStorage.setItem('bookingData', JSON.stringify(bookingData));
+            
+            // Redirecionar para a página de resumo
+            window.location.href = 'resumo.html';
+        }
+        
+        // Função para formatar data
+        function formatDate(date) {
+            return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+        
+        // Função para aplicar filtros aos quartos
+        function applyFilters() {
+            // Obter valores dos filtros
+            const maxPrice = parseInt(document.getElementById('price-range').value);
+            const selectedAmenities = [];
+            
+            // Coletar amenidades selecionadas
+            document.querySelectorAll('input[name="amenities"]:checked').forEach(checkbox => {
+                selectedAmenities.push(checkbox.value);
+            });
+            
+            // Filtrar quartos
+            roomsData.forEach(room => {
+                // Verificar se o preço está dentro do limite
+                const priceMatch = room.price <= maxPrice;
+                
+                // Verificar se todas as amenidades selecionadas estão presentes
+                const amenitiesMatch = selectedAmenities.every(amenity => 
+                    room.amenities.includes(amenity)
+                );
+                
+                // Mostrar ou esconder o quarto com base nos filtros
+                if (priceMatch && amenitiesMatch) {
+                    room.element.style.display = 'flex';
+                } else {
+                    room.element.style.display = 'none';
+                }
+            });
+            
+            // Verificar se há quartos visíveis após a filtragem
+            const visibleRooms = document.querySelectorAll('.room-card[style="display: flex;"]');
+            const noResultsMessage = document.getElementById('no-results-message');
+            
+            if (visibleRooms.length === 0 && !noResultsMessage) {
+                // Criar mensagem de nenhum resultado
+                const message = document.createElement('div');
+                message.id = 'no-results-message';
+                message.className = 'no-results';
+                message.innerHTML = '<p>Nenhum quarto encontrado com os filtros selecionados. Por favor, ajuste seus critérios.</p>';
+                
+                // Inserir após o título da seção
+                const roomsList = document.querySelector('.rooms-list');
+                roomsList.parentNode.insertBefore(message, roomsList);
+            } else if (visibleRooms.length > 0 && noResultsMessage) {
+                // Remover mensagem se houver resultados
+                noResultsMessage.remove();
+            }
+        }
+        
+        // Atualizar o valor exibido do slider de preço
+        function updatePriceValue() {
+            const priceValue = document.getElementById('price-value');
+            const priceRange = document.getElementById('price-range');
+            priceValue.textContent = `Até R$ ${priceRange.value}`;
+        }
+        
+        // Inicialização após o carregamento do DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            // Definir data mínima para check-in (hoje)
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            document.getElementById('check-in').min = today.toISOString().split('T')[0];
+            document.getElementById('check-out').min = tomorrow.toISOString().split('T')[0];
+            
+            // Atualizar data mínima de check-out quando check-in mudar
+            document.getElementById('check-in').addEventListener('change', function() {
+                const checkInDate = new Date(this.value);
+                const minCheckOutDate = new Date(checkInDate);
+                minCheckOutDate.setDate(checkInDate.getDate() + 1);
+                document.getElementById('check-out').min = minCheckOutDate.toISOString().split('T')[0];
+                
+                // Se a data de check-out for anterior à nova data mínima, atualizá-la
+                const checkOutInput = document.getElementById('check-out');
+                const checkOutDate = new Date(checkOutInput.value);
+                if (checkOutDate <= checkInDate) {
+                    checkOutInput.value = minCheckOutDate.toISOString().split('T')[0];
+                }
+            });
+            
+            // Associar elementos DOM aos dados dos quartos
+            const roomCards = document.querySelectorAll('.room-card');
+            roomCards.forEach((card, index) => {
+                if (index < roomsData.length) {
+                    roomsData[index].element = card;
+                }
+            });
+            
+            // Configurar evento para o slider de preço
+            const priceRange = document.getElementById('price-range');
+            priceRange.addEventListener('input', function() {
+                updatePriceValue();
+            });
+            
+            // Configurar evento para o botão de aplicar filtros
+            const applyFiltersBtn = document.getElementById('apply-filters');
+            applyFiltersBtn.addEventListener('click', applyFilters);
+            
+            // Inicializar o valor do slider
+            updatePriceValue();
+            
+            // Adicionar estilo para quartos filtrados
+            const style = document.createElement('style');
+            style.textContent = `
+                .no-results {
+                    text-align: center;
+                    padding: 30px;
+                    background-color: #f9f9f9;
+                    border-radius: 8px;
+                    margin: 20px 0;
+                }
+                
+                .no-results p {
+                    color: #666;
+                    font-size: 1.1rem;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        // Função para alternar o estado da checkbox
+        function toggleCheckbox(id) {
+            const checkbox = document.getElementById(id);
+            checkbox.checked = !checkbox.checked;
+            
+            // Dispara evento de mudança para garantir que os listeners sejam acionados
+            const event = new Event('change');
+            checkbox.dispatchEvent(event);
+        }
+    </script>
+</body>
+</html>

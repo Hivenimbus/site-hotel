@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Sky background -->
+  <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:1" />
+    <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
+  </linearGradient>
+  <rect width="800" height="300" fill="url(#skyGradient)"/>
+  
+  <!-- Distant mountains -->
+  <polygon points="0,300 100,250 200,280 300,240 400,260 500,230 600,270 700,240 800,260 800,300" fill="#78909c" opacity="0.7"/>
+  
+  <!-- Pool deck -->
+  <rect x="0" y="300" width="800" height="300" fill="#e0e0e0"/>
+  
+  <!-- Infinity pool -->
+  <linearGradient id="poolGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:#039be5;stop-opacity:1" />
+    <stop offset="100%" style="stop-color:#0288d1;stop-opacity:1" />
+  </linearGradient>
+  <rect x="50" y="320" width="700" height="150" fill="url(#poolGradient)"/>
+  
+  <!-- Pool edge -->
+  <rect x="50" y="320" width="700" height="10" fill="#90caf9" opacity="0.6"/>
+  
+  <!-- Pool reflections -->
+  <path d="M 100,400 L 120,380 L 140,410 L 160,370 L 180,400" stroke="#ffffff" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M 300,420 L 320,400 L 340,430 L 360,390 L 380,420" stroke="#ffffff" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M 500,410 L 520,390 L 540,420 L 560,380 L 580,410" stroke="#ffffff" stroke-width="1" fill="none" opacity="0.3"/>
+  
+  <!-- Sun loungers -->
+  <g>
+    <!-- Lounger 1 -->
+    <rect x="100" y="500" width="120" height="40" rx="5" ry="5" fill="#d7ccc8" stroke="#a1887f" stroke-width="2"/>
+    <rect x="100" y="480" width="120" height="20" rx="5" ry="5" fill="#a1887f" stroke="#8d6e63" stroke-width="1" transform="rotate(-10 100 480)"/>
+    
+    <!-- Lounger 2 -->
+    <rect x="250" y="500" width="120" height="40" rx="5" ry="5" fill="#d7ccc8" stroke="#a1887f" stroke-width="2"/>
+    <rect x="250" y="480" width="120" height="20" rx="5" ry="5" fill="#a1887f" stroke="#8d6e63" stroke-width="1" transform="rotate(-10 250 480)"/>
+    
+    <!-- Lounger 3 -->
+    <rect x="400" y="500" width="120" height="40" rx="5" ry="5" fill="#d7ccc8" stroke="#a1887f" stroke-width="2"/>
+    <rect x="400" y="480" width="120" height="20" rx="5" ry="5" fill="#a1887f" stroke="#8d6e63" stroke-width="1" transform="rotate(-10 400 480)"/>
+    
+    <!-- Lounger 4 -->
+    <rect x="550" y="500" width="120" height="40" rx="5" ry="5" fill="#d7ccc8" stroke="#a1887f" stroke-width="2"/>
+    <rect x="550" y="480" width="120" height="20" rx="5" ry="5" fill="#a1887f" stroke="#8d6e63" stroke-width="1" transform="rotate(-10 550 480)"/>
+  </g>
+  
+  <!-- Umbrellas -->
+  <g>
+    <!-- Umbrella 1 -->
+    <line x1="160" y1="480" x2="160" y2="420" stroke="#8d6e63" stroke-width="3"/>
+    <path d="M 120,420 Q 160,390 200,420" fill="#ef9a9a" stroke="#e57373" stroke-width="1"/>
+    
+    <!-- Umbrella 2 -->
+    <line x1="460" y1="480" x2="460" y2="420" stroke="#8d6e63" stroke-width="3"/>
+    <path d="M 420,420 Q 460,390 500,420" fill="#80deea" stroke="#4dd0e1" stroke-width="1"/>
+  </g>
+  
+  <!-- Palm trees -->
+  <g>
+    <!-- Left palm -->
+    <rect x="50" y="400" width="15" height="100" fill="#8d6e63"/>
+    <path d="M 57,400 C 30,380 20,350 40,330 C 60,350 70,380 57,400" fill="#66bb6a"/>
+    <path d="M 57,400 C 84,380 94,350 74,330 C 54,350 44,380 57,400" fill="#43a047"/>
+    <path d="M 57,400 C 30,380 10,390 20,360 C 40,390 60,380 57,400" fill="#66bb6a"/>
+    <path d="M 57,400 C 84,380 104,390 94,360 C 74,390 54,380 57,400" fill="#43a047"/>
+    
+    <!-- Right palm -->
+    <rect x="730" y="400" width="15" height="100" fill="#8d6e63"/>
+    <path d="M 737,400 C 710,380 700,350 720,330 C 740,350 750,380 737,400" fill="#66bb6a"/>
+    <path d="M 737,400 C 764,380 774,350 754,330 C 734,350 724,380 737,400" fill="#43a047"/>
+    <path d="M 737,400 C 710,380 690,390 700,360 C 720,390 740,380 737,400" fill="#66bb6a"/>
+    <path d="M 737,400 C 764,380 784,390 774,360 C 754,390 734,380 737,400" fill="#43a047"/>
+  </g>
+  
+  <!-- Pool bar -->
+  <rect x="600" y="350" width="100" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="2"/>
+  <rect x="620" y="380" width="10" height="20" fill="#8d6e63"/>
+  <rect x="670" y="380" width="10" height="20" fill="#8d6e63"/>
+  
+  <!-- Bar stools -->
+  <circle cx="625" cy="410" r="10" fill="#8d6e63"/>
+  <circle cx="625" cy="400" r="15" fill="#d7ccc8" stroke="#a1887f" stroke-width="1"/>
+  
+  <circle cx="675" cy="410" r="10" fill="#8d6e63"/>
+  <circle cx="675" cy="400" r="15" fill="#d7ccc8" stroke="#a1887f" stroke-width="1"/>
+  
+  <!-- Drinks on bar -->
+  <rect x="620" y="340" width="10" height="10" fill="#ffcc80"/>
+  <rect x="650" y="340" width="10" height="10" fill="#80cbc4"/>
+  <rect x="680" y="340" width="10" height="10" fill="#ef9a9a"/>
+  
+  <!-- Sun -->
+  <circle cx="700" cy="100" r="40" fill="#ffeb3b" opacity="0.8"/>
+  <circle cx="700" cy="100" r="50" fill="#ffeb3b" opacity="0.3"/>
+</svg>
